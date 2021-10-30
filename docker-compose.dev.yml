@@ -5,13 +5,15 @@ services:
       context: .
       args:
         NODE_ENV: development
+    env_file:
+      - ./env/.node-app_dev
     volumes:
       - ./:/app
       - /app/node_modules
-    environment:
-      - NODE_ENV=development
     command: npm run dev
   mongo:
+    env_file:
+      - ./env/.mongo_dev
     volumes:
       - mongo-db:/data/db
 
