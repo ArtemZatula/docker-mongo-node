@@ -1,1 +1,0 @@
-module.exports.posts = require('./post.controller');

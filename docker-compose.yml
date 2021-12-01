@@ -11,3 +11,6 @@ services:
 
   mongo:
     image: mongo
+
+  redis:
+    image: redis

@@ -1,6 +1,6 @@
 const Post = require('../models/post.model');
 
-exports.getAllPosts = async (req, res, next) => {
+exports.getAllPosts = async (req, res) => {
   try {
     const posts = await Post.find();
 
