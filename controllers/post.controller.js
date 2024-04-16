@@ -13,7 +13,7 @@ exports.getAllPosts = async (req, res) => {
     })
   } catch(e) {
     res.status(400).json({
-      status: 'fail'
+      status: 'failure'
     })
   }
 }
@@ -30,7 +30,7 @@ exports.getOnePost = async (req, res, next) => {
     })
   } catch(e) {
     res.status(400).json({
-      status: 'fail'
+      status: 'failure'
     })
   }
 }
@@ -47,7 +47,7 @@ exports.createPost = async (req, res, next) => {
     })
   } catch(e) {
     res.status(400).json({
-      status: 'fail'
+      status: 'failure'
     })
   }
 }
@@ -65,7 +65,7 @@ exports.updatePost = async (req, res, next) => {
     });
   } catch (e) {
     res.status(400).json({
-      status: 'fail'
+      status: 'failure'
     });
   }
 }
@@ -79,7 +79,7 @@ exports.deletePost = async (req, res, next) => {
     });
   } catch (e) {
     res.status(400).json({
-      status: 'fail'
+      status: 'failure'
     });
   }
 }
