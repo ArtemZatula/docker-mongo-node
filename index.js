@@ -26,9 +26,8 @@ let redisClient = redis.createClient({
 
 redisClient.on('error', console.error)
 
-
-
 const connectWithRetry = () => {
+  mongoose.set("strictQuery", false);
   mongoose
     .connect(`mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}?authSource=admin`)
     .then(() => console.log("Succesfully connected to DB"))
@@ -40,19 +39,19 @@ const connectWithRetry = () => {
 
 connectWithRetry();
 
-app.use(
-  session({
-    store: new RedisStore({ client: redisClient }),
-    secret: SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-      secure: false,
-      httpOnly: true,
-      maxAge: 30000
-    }
-  })
-)
+// app.use(
+//   session({
+//     store: new RedisStore({ client: redisClient }),
+//     secret: SESSION_SECRET,
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: {
+//       secure: false,
+//       httpOnly: true,
+//       maxAge: 30000
+//     }
+//   })
+// )
 
 app.use(express.json())
 

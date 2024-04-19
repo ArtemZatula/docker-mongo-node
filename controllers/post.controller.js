@@ -3,14 +3,14 @@ const Post = require('../models/post.model');
 exports.getAllPosts = async (req, res) => {
   try {
     const posts = await Post.find();
-
-    res.status(200).json({
+    const respData = {
       status: 'success',
       results: posts.length,
       data: {
         posts
       }
-    })
+    }
+    res.status(200).json(respData)
   } catch(e) {
     res.status(400).json({
       status: 'failure'
@@ -18,15 +18,12 @@ exports.getAllPosts = async (req, res) => {
   }
 }
 
-exports.getOnePost = async (req, res, next) => {
+exports.getOnePost = async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
-
     res.status(200).json({
       status: 'success',
-      data: {
-        post
-      }
+      data: { post }
     })
   } catch(e) {
     res.status(400).json({
@@ -35,15 +32,12 @@ exports.getOnePost = async (req, res, next) => {
   }
 }
 
-exports.createPost = async (req, res, next) => {
+exports.createPost = async (req, res) => {
   try {
     const post = await Post.create(req.body);
-
     res.status(200).json({
       status: 'success',
-      data: {
-        post
-      }
+      data: { post }
     })
   } catch(e) {
     res.status(400).json({
@@ -52,13 +46,12 @@ exports.createPost = async (req, res, next) => {
   }
 }
 
-exports.updatePost = async (req, res, next) => {
+exports.updatePost = async (req, res) => {
   try {
     const post = await Post.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true
     });
-
     res.status(200).json({
       status: "success",
       data: {post}
@@ -70,10 +63,9 @@ exports.updatePost = async (req, res, next) => {
   }
 }
 
-exports.deletePost = async (req, res, next) => {
+exports.deletePost = async (req, res) => {
   try {
     const post = await Post.findByIdAndDelete(req.params.id);
-
     res.status(200).json({
       status: "success"
     });

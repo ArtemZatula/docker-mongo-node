@@ -1,21 +1,33 @@
-version: "3"
 services:
   node-app:
     build:
       context: .
       args:
         NODE_ENV: development
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
     env_file:
       - ./env/.node-app_dev
     volumes:
       - ./:/app
       - /app/node_modules
+    depends_on:
+      - mongo
     command: npm run dev
+
   mongo:
+    image: mongo
     env_file:
       - ./env/.mongo_dev
     volumes:
       - mongo-db:/data/db
 
+  redis:
+    image: redis
+
 volumes:
   mongo-db:
+    driver: local
+

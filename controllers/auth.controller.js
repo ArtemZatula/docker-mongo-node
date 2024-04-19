@@ -1,24 +1,20 @@
 const User = require('../models/user.model');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 
 exports.signUp = async (req, res) => {
   const {username, password} = req.body;
-  const hashpass = await bcrypt.hash(password, 12)
-
+  const hashpass = await bcrypt.hash(password, 12);
   try {
     const newUser = await User.create({username, password: hashpass});
-
     res.status(201).json({
       status: 'success',
       data: { user: newUser }
     })
-
   } catch(e) {
     res.status(400).json({
-      status: 'fail'
+      status: 'failure'
     });
   }
-
 }
 
 exports.login = async (req, res) => {
@@ -45,10 +41,8 @@ exports.login = async (req, res) => {
       });
     }
   } catch(e) {
-    console.log('error', e);
-
     res.status(400).json({
-      status: 'fail'
+      status: 'failure'
     });
   }
 
