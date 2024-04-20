@@ -15,16 +15,15 @@ const authRouter = require('./routes/auth.route')
 
 const app = express();
 
-const redis = require('redis')
-const session = require('express-session')
+const {createClient} = require("redis");
+const session = require('express-session');
+const RedisStore = require("connect-redis")(session);
 
-let RedisStore = require('connect-redis')(session)
-let redisClient = redis.createClient({
+let redisClient = createClient({
   host: REDIS_URL,
   port: REDIS_PORT
 })
-
-redisClient.on('error', console.error)
+// redisClient.connect().catch(console.error)
 
 const connectWithRetry = () => {
   mongoose.set("strictQuery", false);
@@ -39,19 +38,18 @@ const connectWithRetry = () => {
 
 connectWithRetry();
 
-// app.use(
-//   session({
-//     store: new RedisStore({ client: redisClient }),
-//     secret: SESSION_SECRET,
-//     resave: false,
-//     saveUninitialized: true,
-//     cookie: {
-//       secure: false,
-//       httpOnly: true,
-//       maxAge: 30000
-//     }
-//   })
-// )
+app.use(
+  session({
+    store: new RedisStore({
+      client: redisClient,
+      prefix: "myapp:"
+    }),
+    secret: SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: true, maxAge: 3600000 }
+  })
+)
 
 app.use(express.json())
 
