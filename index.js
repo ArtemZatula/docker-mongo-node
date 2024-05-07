@@ -23,7 +23,6 @@ let redisClient = createClient({
   host: REDIS_URL,
   port: REDIS_PORT
 })
-// redisClient.connect().catch(console.error)
 
 const connectWithRetry = () => {
   mongoose.set("strictQuery", false);
@@ -47,7 +46,7 @@ app.use(
     secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: true, maxAge: 3600000 }
+    cookie: { secure: false, maxAge: 60000 }
   })
 )
 

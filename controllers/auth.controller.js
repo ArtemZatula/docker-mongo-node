@@ -3,6 +3,12 @@ const bcrypt = require('bcrypt');
 
 exports.signUp = async (req, res) => {
   const {username, password} = req.body;
+  if (!username || !password) {
+    return res.status(401).json({
+      status: 'failure',
+      message: 'Username or password cannot be empty'
+    });
+  }
   const hashpass = await bcrypt.hash(password, 12);
   try {
     const newUser = await User.create({username, password: hashpass});
@@ -30,14 +36,15 @@ exports.login = async (req, res) => {
     }
     const isCorrect = await bcrypt.compare(password, user.password);
     if (isCorrect) {
-      console.log('isCorrect', isCorrect)
+      req.session.user = user;
+      req.session.save();
       res.status(201).json({
-        status: 'success',
-        // data: { user }
+        status: 'success'
       })
     } else {
       res.status(400).json({
-        status: 'incorrect user or pass'
+        status: "failure",
+        message: "Incorrect Username or Password"
       });
     }
   } catch(e) {
@@ -45,5 +52,4 @@ exports.login = async (req, res) => {
       status: 'failure'
     });
   }
-
 }
