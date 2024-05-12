@@ -6,7 +6,7 @@ const {
   MONGO_IP,
   MONGO_PORT,
   SESSION_SECRET,
-  REDIS_URL,
+  REDIS_HOST,
   REDIS_PORT
 } = require('./config/config');
 
@@ -15,14 +15,17 @@ const authRouter = require('./routes/auth.route')
 
 const app = express();
 
-const {createClient} = require("redis");
+const {createClient} = require('redis');
 const session = require('express-session');
-const RedisStore = require("connect-redis")(session);
+const RedisStore = require('connect-redis')(session);
 
-let redisClient = createClient({
-  host: REDIS_URL,
-  port: REDIS_PORT
+const redisClient = createClient({
+  socket: { port: REDIS_PORT, host: REDIS_HOST },
+  legacyMode : true
 })
+redisClient.on('error', (error) => console.log('error', error));
+redisClient.on('connect', () => console.log('Connected to Redis'))
+redisClient.connect();
 
 const connectWithRetry = () => {
   mongoose.set("strictQuery", false);
@@ -46,7 +49,7 @@ app.use(
     secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false, maxAge: 60000 }
+    cookie: { secure: false, maxAge: 360000 }
   })
 )
 
