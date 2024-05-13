@@ -1,6 +1,6 @@
-const Post = require('../models/post.model');
+import Post from '../models/post.model.js';
 
-exports.getAllPosts = async (req, res) => {
+export async function getAllPosts(req, res) {
   try {
     const posts = await Post.find();
     const respData = {
@@ -18,7 +18,7 @@ exports.getAllPosts = async (req, res) => {
   }
 }
 
-exports.getOnePost = async (req, res) => {
+export async function getOnePost(req, res) {
   try {
     const post = await Post.findById(req.params.id);
     res.status(200).json({
@@ -32,7 +32,7 @@ exports.getOnePost = async (req, res) => {
   }
 }
 
-exports.createPost = async (req, res) => {
+export async function createPost(req, res) {
   try {
     const post = await Post.create(req.body);
     res.status(200).json({
@@ -46,7 +46,7 @@ exports.createPost = async (req, res) => {
   }
 }
 
-exports.updatePost = async (req, res) => {
+export async function updatePost(req, res) {
   try {
     const post = await Post.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -63,7 +63,7 @@ exports.updatePost = async (req, res) => {
   }
 }
 
-exports.deletePost = async (req, res) => {
+export async function deletePost(req, res) {
   try {
     const post = await Post.findByIdAndDelete(req.params.id);
     res.status(200).json({

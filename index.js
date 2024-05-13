@@ -1,5 +1,14 @@
-const express = require('express');
-const mongoose = require('mongoose');
+import express from 'express'
+import mongoose from 'mongoose'
+import {createClient} from 'redis';
+import session from 'express-session';
+import connectRedis from 'connect-redis'
+
+import config from './config/config.js'
+import postRouter from './routes/post.route.js'
+import authRouter from './routes/auth.route.js'
+import workspaceRouter from './routes/workspace.route.js'
+
 const {
   MONGO_USER,
   MONGO_PASSWORD,
@@ -8,16 +17,9 @@ const {
   SESSION_SECRET,
   REDIS_HOST,
   REDIS_PORT
-} = require('./config/config');
-
-const postRouter = require('./routes/post.route')
-const authRouter = require('./routes/auth.route')
-
+} = config;
 const app = express();
-
-const {createClient} = require('redis');
-const session = require('express-session');
-const RedisStore = require('connect-redis')(session);
+const RedisStore = connectRedis(session);
 
 const redisClient = createClient({
   socket: { port: REDIS_PORT, host: REDIS_HOST },
@@ -60,6 +62,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/v1/posts', postRouter);
+app.use('/api/v1/workspace', workspaceRouter);
 app.use('/api/v1/auth', authRouter);
 
 const port = process.env.PORT || 3000;

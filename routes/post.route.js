@@ -1,18 +1,23 @@
-const express = require('express')
+import express from 'express'
 
-const postController = require('../controllers/post.controller');
-const protect = require('../middlewares/auth.middleware');
+import {
+  getAllPosts,
+  createPost, 
+  getOnePost,
+  updatePost, 
+  deletePost
+} from '../controllers/post.controller.js';
+import { protect } from '../middlewares/auth.middleware.js';
 
 const router = express.Router();
 
 router.route('/')
-  .get(protect, postController.getAllPosts)
-  .post(protect, postController.createPost)
+  .get(protect, getAllPosts)
+  .post(protect, createPost)
 
 router.route('/:id')
-  .get(protect, postController.getOnePost)
-  .patch(protect, postController.updatePost)
-  .delete(protect, postController.deletePost)
+  .get(protect, getOnePost)
+  .patch(protect, updatePost)
+  .delete(protect, deletePost)
 
-
-module.exports = router;
+export default router;

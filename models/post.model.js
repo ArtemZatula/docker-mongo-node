@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
+import { Schema, model } from 'mongoose'
 
-const postSchema = new mongoose.Schema({
+const postSchema = new Schema({
   title: {
     type: String,
     require: [true, 'Post must have a title']
@@ -11,4 +11,4 @@ const postSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('Post', postSchema);
+export default model('Post', postSchema);

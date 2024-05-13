@@ -1,7 +1,7 @@
-const User = require('../models/user.model');
-const bcrypt = require('bcrypt');
+import bcrypt from 'bcrypt'
+import User from '../models/user.model.js'
 
-exports.signUp = async (req, res) => {
+export async function signUp(req, res) {
   const {username, password} = req.body;
   if (!username || !password) {
     return res.status(401).json({
@@ -23,7 +23,7 @@ exports.signUp = async (req, res) => {
   }
 }
 
-exports.login = async (req, res) => {
+export async function login(req, res) {
   const {username, password} = req.body;
   try {
     const user = await User.findOne({username});
