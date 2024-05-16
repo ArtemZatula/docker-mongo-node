@@ -20,7 +20,7 @@ export async function getAllWorkspaces(req, res) {
 export async function createWorkspace(req, res) {
   try {
     const ws = {
-      name: req.body.name || 'Undefined',
+      name: req.body.name,
       users: [{
         userId: req.session.user._id,
         role: 'Owner',
