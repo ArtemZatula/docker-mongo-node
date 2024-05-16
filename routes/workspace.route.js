@@ -7,7 +7,7 @@ router.route('/')
   .get(getAllWorkspaces)
   .post(createWorkspace)
 
-// router.route('/:id')
+router.route('/:id')
 //   .get(protect, postController.getOnePost)
 //   .patch(protect, postController.updatePost)
 //   .delete(protect, postController.deletePost)

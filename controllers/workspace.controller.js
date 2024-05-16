@@ -9,9 +9,10 @@ export async function getAllWorkspaces(req, res) {
       results: workspaces.length,
       data: { workspaces }
     })
-  } catch(e) {
+  } catch(error) {
     res.status(400).json({
-      status: 'failure'
+      status: 'failure',
+      message: error
     })
   }
 }
@@ -22,18 +23,19 @@ export async function createWorkspace(req, res) {
       name: req.body.name || 'Undefined',
       users: [{
         userId: req.session.user._id,
-        role: 'Owner'
+        role: 'Owner',
+        status: 'Active'
       }]
     }
     const workspace = await Workspace.create(ws);
     res.status(200).json({
       status: 'success',
-      results: workspaces.length,
-      data: { workspaces }
+      data: workspace
     })
-  } catch(e) {
+  } catch(error) {
     res.status(400).json({
-      status: 'failure'
+      status: 'failure',
+      message: error
     })
   }
 }

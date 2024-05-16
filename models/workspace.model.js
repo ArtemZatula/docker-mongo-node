@@ -1,14 +1,13 @@
 import { Schema, model } from 'mongoose'
+import { workspaceUserSchema } from './workspace-user.model.js';
 
 const workspaceSchema = new Schema({
-  name: String,
-  users: [{
-    userId: String,
-    role: {
-      type: String,
-      enum: ['Owner', 'Viewer', 'Editor']
-    }
-  }]
+  name: {
+    type: String,
+    required: true
+  },
+  users: [workspaceUserSchema],
+  questions: [String]
 });
 
 export default model('Workspace', workspaceSchema);
