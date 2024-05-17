@@ -1,5 +1,11 @@
 import { Router } from 'express';
-import { createWorkspace, getAllWorkspaces } from '../controllers/workspace.controller.js';
+import {
+  createWorkspace,
+  getAllWorkspaces,
+  updateWorkspace,
+  deleteWorkspace,
+  getWorkspace
+} from '../controllers/workspace.controller.js';
 
 const router = Router();
 
@@ -8,8 +14,8 @@ router.route('/')
   .post(createWorkspace)
 
 router.route('/:id')
-//   .get(protect, postController.getOnePost)
-//   .patch(protect, postController.updatePost)
-//   .delete(protect, postController.deletePost)
+  .get(getWorkspace)
+  .patch(updateWorkspace)
+  .delete(deleteWorkspace)
 
 export default router
