@@ -52,3 +52,20 @@ export async function login(req, res) {
     });
   }
 }
+
+export function logout(req, res) {
+  req.session.destroy(err => {
+    if (err) {
+      return res.status(500).json({
+        status: 'failure',
+        message: 'Failed to log out'
+      });
+    }
+
+    res.clearCookie('connect.sid');
+    res.status(200).json({
+      status: 'success',
+      message: 'Logged out successfully'
+    });
+  });
+}
