@@ -59,7 +59,7 @@ export async function createWorkspace(req, res) {
 
 export async function updateWorkspace(req, res) {
   try {
-    const workspace = await Workspace.findByIdAndUpdate(req.params.id, {...req.body},  {
+    const workspace = await Workspace.findByIdAndUpdate(req.params.id, {...req.body}, {
       new: true,
       runValidators: true
     });

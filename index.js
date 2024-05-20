@@ -5,9 +5,9 @@ import session from 'express-session';
 import connectRedis from 'connect-redis'
 
 import config from './config/config.js'
-import postRouter from './routes/post.route.js'
 import authRouter from './routes/auth.route.js'
 import workspaceRouter from './routes/workspace.route.js'
+import { checkAuth } from './middlewares/auth.middleware.js';
 
 const {
   MONGO_USER,
@@ -56,15 +56,8 @@ app.use(
 )
 
 app.use(express.json())
-
-app.get('/', (req, res) => {
-  res.send('<h2>Hi there!!!</h2>');
-});
-
-app.use('/api/v1/posts', postRouter);
-app.use('/api/v1/workspace', workspaceRouter);
-app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/workspace', checkAuth, workspaceRouter)
+app.use('/api/v1/auth', authRouter)
 
 const port = process.env.PORT || 3000;
-
 app.listen(port, () => console.log(`listening on port ${port}`));
