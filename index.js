@@ -8,6 +8,7 @@ import config from './config/config.js'
 import authRouter from './routes/auth.route.js'
 import workspaceRouter from './routes/workspace.route.js'
 import { checkAuth } from './middlewares/auth.middleware.js';
+import { handleErrors } from './middlewares/handle-errors.middleware.js';
 
 const {
   MONGO_USER,
@@ -58,6 +59,7 @@ app.use(
 app.use(express.json())
 app.use('/api/v1/workspace', checkAuth, workspaceRouter)
 app.use('/api/v1/auth', authRouter)
+app.use(handleErrors)
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`listening on port ${port}`));
