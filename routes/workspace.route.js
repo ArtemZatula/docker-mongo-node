@@ -7,19 +7,21 @@ import {
   deleteWorkspace,
   getWorkspace
 } from '../controllers/workspace.controller.js'
-import questionRouter from './question.route.js'
+import { questionRouter } from './question.route.js'
+import { tagRouter } from './tag.route.js'
+import { validateObjectId } from '../middlewares/validate-object-id.middleware.js'
 
-const router = Router()
+export const workspaceRouter = Router()
 
-router.route('/')
+workspaceRouter.route('/')
   .get(getAllWorkspaces)
   .post(createWorkspace)
 
-router.route('/:workspaceId')
+workspaceRouter.route('/:workspaceId')
+  .all(validateObjectId('workspaceId'))
   .get(getWorkspace)
   .patch(updateWorkspace)
   .delete(deleteWorkspace)
 
-router.use('/:workspaceId/questions', questionRouter)
-
-export default router
+workspaceRouter.use('/:workspaceId/questions', questionRouter)
+workspaceRouter.use('/:workspaceId/tags', tagRouter)

@@ -5,8 +5,8 @@ import session from 'express-session';
 import connectRedis from 'connect-redis'
 
 import config from './config/config.js'
-import authRouter from './routes/auth.route.js'
-import workspaceRouter from './routes/workspace.route.js'
+import { authRouter } from './routes/auth.route.js'
+import { workspaceRouter } from './routes/workspace.route.js'
 import { checkAuth } from './middlewares/auth.middleware.js';
 import { handleErrors } from './middlewares/handle-errors.middleware.js';
 

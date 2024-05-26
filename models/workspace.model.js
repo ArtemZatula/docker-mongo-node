@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose'
+import { Schema, Types, model } from 'mongoose'
 import { workspaceUserSchema } from './workspace-user.model.js';
 
 const workspaceSchema = new Schema({
@@ -7,7 +7,16 @@ const workspaceSchema = new Schema({
     default: 'Undefined'
   },
   users: [workspaceUserSchema],
-  questions: [String] }, { timestamps: true }
+  questions: [{
+    type: Types.ObjectId,
+    ref: 'Question'
+  }],
+  tags: [{
+    type: Types.ObjectId,
+    ref: 'Tag'
+  }]
+}, { timestamps: true }
+
 );
 
 export default model('Workspace', workspaceSchema);

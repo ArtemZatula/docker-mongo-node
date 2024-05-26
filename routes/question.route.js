@@ -7,14 +7,13 @@ import {
   updateQuestion
 } from '../controllers/question.controller.js'
 
-const router = Router({ mergeParams: true })
-router.route('/')
+export const questionRouter = Router({ mergeParams: true })
+questionRouter.route('/')
   .get(getAllWorkspaceQuestions)
   .post(addQuestion)
 
-router.route('/:questionId')
+questionRouter.route('/:questionId')
   // .get(getQuestion)
   .patch(updateQuestion)
   .delete(deleteQuestion)
 
-export default router
