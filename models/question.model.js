@@ -1,11 +1,15 @@
-import { Schema, model } from 'mongoose'
+import { Schema, model, Types } from 'mongoose'
 
 const questionSchema = new Schema({
   title: {
     type: String,
     required: [true, 'Question must have a title']
   },
-  answers: [],
+  workspace: {
+    type: Types.ObjectId,
+    ref: 'Workspace',
+    required: true
+  },
   tags: []
 })
 

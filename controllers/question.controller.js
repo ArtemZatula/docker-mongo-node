@@ -3,9 +3,7 @@ import Question from '../models/question.model.js'
 
 export async function getAllWorkspaceQuestions(req, res) {
   try {
-    const workspace = await Workspace.findById(req.params.workspaceId)
-    const questionIds = workspace.questions
-    const questions = await Question.find({_id: { $in : questionIds } });
+    const questions = await Question.find({workspace: req.params.workspaceId});
     res.status(200).send(questions);
   } catch (error) {
     res.status(500).send(error.message);
@@ -14,12 +12,8 @@ export async function getAllWorkspaceQuestions(req, res) {
 
 export async function addQuestion(req, res) {
   try {
-    const { workspaceId } = req.params;
-    const workspace = await Workspace.findById(workspaceId);
-    const question = await Question.create(req.body);
-    workspace.questions.push(question._id);
-    await workspace.save();
-    res.status(201).send(workspace);
+    const question = await Question.create({...req.body, workspace: req.params.workspaceId});
+    res.status(201).send(question);
   } catch (error) {
     res.status(500).send(error.message);
   }

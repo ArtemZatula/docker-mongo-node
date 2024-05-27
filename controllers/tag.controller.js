@@ -3,11 +3,7 @@ import Tag from '../models/tag.model.js'
 
 export async function addTagToWorkspace(req, res) {
   try {
-    const { workspaceId } = req.params;
-    const workspace = await Workspace.findById(workspaceId);
-    const tag = await Tag.create(req.body);
-    workspace.tags.push(tag._id);
-    await workspace.save();
+    const tag = await Tag.create({...req.body, workspace: req.params.workspaceId});
     res.status(201).send(tag);
   } catch (error) {
     res.status(500).send(error.message);
@@ -29,9 +25,7 @@ export async function addTagQuestion(req, res) {
 
 export async function getAllWorkspaceTags(req, res) {
   try {
-    const workspace = await Workspace.findById(req.params.workspaceId)
-    const tagIds = workspace.tags
-    const tags = await Tag.find({_id: { $in: tagIds } });
+    const tags = await Tag.find({workspace: req.params.workspaceId});
     res.status(200).send(tags);
   } catch (error) {
     res.status(500).send(error.message);

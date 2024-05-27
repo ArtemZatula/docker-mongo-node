@@ -7,16 +7,6 @@ const workspaceSchema = new Schema({
     default: 'Undefined'
   },
   users: [workspaceUserSchema],
-  questions: [{
-    type: Types.ObjectId,
-    ref: 'Question'
-  }],
-  tags: [{
-    type: Types.ObjectId,
-    ref: 'Tag'
-  }]
-}, { timestamps: true }
-
-);
+}, { timestamps: true });
 
 export default model('Workspace', workspaceSchema);

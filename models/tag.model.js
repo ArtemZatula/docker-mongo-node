@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose'
+import { Schema, model, Types } from 'mongoose'
 
 const tagSchema = new Schema({
   title: {
@@ -6,6 +6,11 @@ const tagSchema = new Schema({
     required: [true, 'Tag must have a title'],
     unique: true
   },
+  workspace: {
+    type: Types.ObjectId,
+    ref: 'Workspace',
+    required: true
+  }
 })
 
 export default model('Tag', tagSchema)
