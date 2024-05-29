@@ -1,4 +1,4 @@
-export function handleErrors(err, req, res, next) {
+export function handleErrors(err, req, res) {
   console.error(err.stack);
   res.status(400).json({
     status: 'failure',

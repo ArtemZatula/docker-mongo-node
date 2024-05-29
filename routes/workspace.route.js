@@ -8,7 +8,7 @@ import {
   getWorkspace
 } from '../controllers/workspace.controller.js'
 import { questionRouter } from './question.route.js'
-import { tagRouter } from './tag.route.js'
+import { workspaceTagRouter } from './workspace-tag.route.js'
 import { validateObjectId } from '../middlewares/validate-object-id.middleware.js'
 
 export const workspaceRouter = Router()
@@ -24,4 +24,4 @@ workspaceRouter.route('/:workspaceId')
   .delete(deleteWorkspace)
 
 workspaceRouter.use('/:workspaceId/questions', questionRouter)
-workspaceRouter.use('/:workspaceId/tags', tagRouter)
+workspaceRouter.use('/:workspaceId/tags', workspaceTagRouter)

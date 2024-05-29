@@ -10,7 +10,11 @@ const questionSchema = new Schema({
     ref: 'Workspace',
     required: true
   },
-  tags: []
+  tags: [{
+    type: Types.ObjectId,
+    ref: 'Tag',
+    required: true
+  }]
 })
 
-export default model('Question', questionSchema)
+export const Question = model('Question', questionSchema)
