@@ -7,6 +7,7 @@ import connectRedis from 'connect-redis'
 import config from './config/config.js'
 import { authRouter } from './routes/auth.route.js'
 import { workspaceRouter } from './routes/workspace.route.js'
+import { questionRouter } from './routes/question.route.js';
 import { checkAuth } from './middlewares/auth.middleware.js';
 import { handleErrors } from './middlewares/handle-errors.middleware.js';
 
@@ -58,6 +59,7 @@ app.use(
 
 app.use(express.json())
 app.use('/api/v1/workspace', checkAuth, workspaceRouter)
+app.use('/api/v1/question', checkAuth, questionRouter)
 app.use('/api/v1/auth', authRouter)
 app.use(handleErrors)
 
