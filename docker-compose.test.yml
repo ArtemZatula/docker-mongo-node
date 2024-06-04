@@ -3,30 +3,25 @@ services:
     build:
       context: .
       args:
-        NODE_ENV: development
+        NODE_ENV: test
     ports:
       - "3000:3000"
     env_file:
-      - ./env/dev/.node-app_dev
+      - ./env/test/.node-app_test
     volumes:
       - ./:/app
       - /app/node_modules
     depends_on:
       - mongo
       - redis
-    command: npm run dev
+    command: npm run test
 
   mongo:
     image: mongo
     env_file:
-      - ./env/.mongo_dev
+      - ./env/test/.mongo_test
     volumes:
       - mongo-db:/data/db
 
   redis:
     image: redis
-
-volumes:
-  mongo-db:
-    driver: local
-
