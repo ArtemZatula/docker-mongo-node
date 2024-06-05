@@ -21,7 +21,9 @@ services:
     env_file:
       - ./env/test/.mongo_test
     volumes:
-      - mongo-db:/data/db
+      - mongo-db-test:/data/db
 
-  redis:
-    image: redis
+volumes:
+  mongo-db-test:
+    driver: local
+  

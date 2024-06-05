@@ -14,3 +14,7 @@ services:
 
   redis:
     image: redis
+
+volumes:
+  mongo-db:
+    driver: local

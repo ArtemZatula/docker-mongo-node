@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt'
-import User from '../models/user.model.js'
+import { User } from '../models/user.model.js'
 
-export async function signUp(req, res) {
+export async function signup(req, res) {
   const {username, password} = req.body;
   if (!username || !password) {
     return res.status(401).json({
