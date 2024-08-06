@@ -23,22 +23,18 @@ export async function addQuestion(req, res) {
 
 export async function updateQuestion(req, res) {
   try {
-    const questionToUpdate = await Question.findByIdAndUpdate(
-      req.params.questionId, 
-      {...req.body}, 
-      { new: true,
-        runValidators: true }
-    );
-    res.status(200).send(questionToUpdate);
+    Object.assign(req.question, req.body)
+    await req.question.save({ runValidators: true })
+    res.status(200).send(req.question)
   } catch (error) {
     res.status(500).send(error.message);
   }
-};
+}
 
 export async function deleteQuestion(req, res) {
   try {
-    await Question.findByIdAndDelete(req.params.questionId)
-    res.status(204)
+    await req.question.deleteOne();
+    res.status(204).send();
   } catch (error) {
     res.status(500).send(error.message);
   }
