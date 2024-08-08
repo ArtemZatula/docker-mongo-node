@@ -1,4 +1,4 @@
-import Workspace from '../models/workspace.model.js';
+import { Workspace } from '../models/workspace.model.js';
 
 export async function getAllWorkspaces(req, res) {
   try {

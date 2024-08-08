@@ -9,4 +9,4 @@ const workspaceSchema = new Schema({
   users: [workspaceUserSchema],
 }, { timestamps: true });
 
-export default model('Workspace', workspaceSchema);
+export const Workspace = model('Workspace', workspaceSchema);

@@ -12,4 +12,4 @@ const answerSchema = new Schema({
   }
 })
 
-export default model('Answer', answerSchema)
+export const Answer = model('Answer', answerSchema)
