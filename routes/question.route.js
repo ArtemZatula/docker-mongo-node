@@ -10,8 +10,10 @@ import { checkQuestionExists } from '../middlewares/check-question-exists.middle
 
 export const questionRouter = Router()
 questionRouter.route('/:questionId')
-  .all(validateObjectId('questionId'))
-  .all(checkQuestionExists())
+  .all(
+    validateObjectId('questionId'),
+    checkQuestionExists()
+  )
   .patch(updateQuestion)
   .delete(deleteQuestion)
 questionRouter.use('/:questionId/tags', questionTagRouter)

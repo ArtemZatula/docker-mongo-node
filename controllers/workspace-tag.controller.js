@@ -1,5 +1,6 @@
 import { Question } from '../models/question.model.js'
-import Tag from '../models/tag.model.js'
+import { Tag } from '../models/tag.model.js';
+
 
 export async function addTagToWorkspace(req, res) {
   try {
