@@ -39,5 +39,5 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-          ssh -o StrictHostKeyChecking=no ec2-user@your-ec2-public-ip "cd /home/ec2-user/app && docker pull artemzatula/node-app-amd64"
-          ssh -o StrictHostKeyChecking=no ec2-user@your-ec2-public-ip "cd /home/ec2-user/app && docker-compose -f docker-compose.yml -f docker-compose.dev.yml up"
+          ssh -o StrictHostKeyChecking=no ec2-user@your-ec2-public-ip "cd /home/ec2-user && docker pull artemzatula/node-app-amd64"
+          ssh -o StrictHostKeyChecking=no ec2-user@your-ec2-public-ip "cd /home/ec2-user && docker-compose -f docker-compose.yml -f docker-compose.dev.yml up"
