@@ -43,4 +43,5 @@ jobs:
           cd /home/ec2-user/
           docker pull artemzatula/node-app-amd64
           docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+          exit
           EOF
