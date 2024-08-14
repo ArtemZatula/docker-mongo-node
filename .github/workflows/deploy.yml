@@ -48,4 +48,4 @@ jobs:
 
       - name: Run new container
         run: |
-          ssh -o StrictHostKeyChecking=no ec2-user@3.67.196.24 "docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d"
+          ssh -o StrictHostKeyChecking=no ec2-user@3.67.196.24 "docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d"
