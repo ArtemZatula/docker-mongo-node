@@ -33,6 +33,7 @@ redisClient.connect();
 
 const connectWithRetry = () => {
   mongoose.set("strictQuery", false);
+  console.log("MONGO_USER", MONGO_USER, 'MONGO_PASSWORD', MONGO_PASSWORD);
   mongoose
     .connect(`mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}?authSource=admin`)
     .then(() => console.log("Succesfully connected to DB"))
