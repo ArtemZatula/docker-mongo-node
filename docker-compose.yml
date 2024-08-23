@@ -2,16 +2,17 @@ services:
   node-app:
     image: artemzatula/node-app-amd64
     build: .
-    ports:
-      - "3000:3000"
     env_file:
       - ./env/.env
     depends_on:
       - mongo
+      - redis
     command: npm run start
 
   mongo:
     image: mongo
+    volumes:
+      - mongo-db:/data/db
 
   redis:
     image: redis
